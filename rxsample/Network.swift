@@ -9,6 +9,7 @@
 import Foundation
 import Alamofire
 
+// Using Coinmarket API: https://coinmarketcap.com/api/
 struct API {
 
     static func getCurrencyList(completionHandler: @escaping (DefaultDataResponse) -> ()) {
