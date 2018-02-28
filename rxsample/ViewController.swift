@@ -13,29 +13,17 @@ class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
 
-    var currencyArray: [Cryptocurrency] = []
+    let viewModel = VCViewModel()
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        fetchPrices()
-    }
-
-    func fetchPrices() {
-        API.getCurrencyList(completionHandler: { response in
-            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                print("Data: \(utf8Text)") // original server data as UTF8 string
-
-                let decoder = JSONDecoder()
-                if let decoded = try? decoder.decode([Cryptocurrency].self, from: data) {
-                    self.currencyArray = decoded
-                    DispatchQueue.main.async {
-                        self.tableView.reloadData()
-                    }
-                }
+        viewModel.onCurrenciesFetched = {
+            DispatchQueue.main.async {
+                self.tableView.reloadData()
             }
-
-        })
+        }
+        viewModel.fetchCurrencies()
     }
 }
 
@@ -45,13 +33,13 @@ extension ViewController: UITableViewDataSource {
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return currencyArray.count
+        return viewModel.currencies.count
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "VCTableViewCell") as! VCTableViewCell
-        cell.nameLbl.text = currencyArray[indexPath.row].name
-        cell.priceLbl.text = currencyArray[indexPath.row].price_usd
+        cell.nameLbl.text = viewModel.currencies[indexPath.row].name
+        cell.priceLbl.text = viewModel.currencies[indexPath.row].price_usd
         return cell
     }
 }
