@@ -8,6 +8,7 @@ target 'rxsample' do
   # Pods for rxsample
   pod 'Alamofire', '~> 4.6'
   pod 'RxSwift',    '~> 4.0'
+  pod 'RxCocoa',    '~> 4.0'
 
   target 'rxsampleTests' do
     inherit! :search_paths
