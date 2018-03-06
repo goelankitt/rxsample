@@ -7,21 +7,32 @@
 //
 
 import Foundation
+import RxSwift
 
 class VCViewModel {
 
-    var currencies: [Cryptocurrency] = []
-    var onCurrenciesFetched: (() -> Void)?
+    var currencies = Variable<[Cryptocurrency]>([])
+    var currenciesObservable: Observable<[Cryptocurrency]>!
+    fileprivate let disposeBag = DisposeBag()
+
+    init() {
+        setup()
+    }
+
+    func setup() {
+        currenciesObservable = currencies.asObservable()
+            .map { currency in
+                return currency
+        }
+    }
 
     func fetchCurrencies() {
         API.getCurrencyList(completionHandler: { response in
             if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                print("Data: \(utf8Text)") // original server data as UTF8 string
-
                 let decoder = JSONDecoder()
                 if let decoded = try? decoder.decode([Cryptocurrency].self, from: data) {
-                    self.currencies = decoded
-                    self.onCurrenciesFetched?()
+                    // Get currencies list using codable
+                    self.currencies.value = decoded
                 }
             }
 
