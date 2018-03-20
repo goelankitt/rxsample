@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Lub-aw-EyK">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="567"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="VCTableViewCell" rowHeight="70" id="klg-6P-Dqd" customClass="VCTableViewCell" customModule="rxsample" customModuleProvider="target">
@@ -63,17 +63,27 @@
                                     <outlet property="dataSource" destination="BYZ-38-t0r" id="MOc-l1-6PU"/>
                                 </connections>
                             </tableView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yWt-V4-ocC">
+                                <rect key="frame" x="164" y="617" width="46" height="30"/>
+                                <state key="normal" title="Button"/>
+                                <connections>
+                                    <action selector="bottomBtnPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="xfD-I8-wYk"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="Lub-aw-EyK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="8DQ-vd-XOp"/>
-                            <constraint firstItem="Lub-aw-EyK" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="CsI-IC-Yg5"/>
+                            <constraint firstItem="Lub-aw-EyK" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" constant="-100" id="CsI-IC-Yg5"/>
+                            <constraint firstItem="yWt-V4-ocC" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="SiH-w7-PkD"/>
                             <constraint firstItem="Lub-aw-EyK" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="Wes-Mo-aDO"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="yWt-V4-ocC" secondAttribute="bottom" constant="20" id="ads-b3-bpj"/>
                             <constraint firstItem="Lub-aw-EyK" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="k1Z-Ud-BF4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
+                        <outlet property="bottomBtn" destination="yWt-V4-ocC" id="Eef-B2-zG9"/>
                         <outlet property="tableView" destination="Lub-aw-EyK" id="mgF-mG-ERW"/>
                     </connections>
                 </viewController>

@@ -13,6 +13,7 @@ import RxSwift
 class ViewController: UIViewController {
 
     @IBOutlet weak var tableView: UITableView!
+    @IBOutlet weak var bottomBtn: UIButton!
 
     let viewModel = VCViewModel()
     fileprivate let disposeBag = DisposeBag()
@@ -28,6 +29,11 @@ class ViewController: UIViewController {
 
         viewModel.fetchCurrencies()
     }
+
+    @IBAction func bottomBtnPressed(_ sender: Any) {
+        viewModel.fetchCurrencies()
+    }
+
 }
 
 extension ViewController: UITableViewDataSource {

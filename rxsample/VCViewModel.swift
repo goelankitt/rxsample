@@ -15,6 +15,8 @@ class VCViewModel {
     var currenciesObservable: Observable<[Cryptocurrency]>!
     fileprivate let disposeBag = DisposeBag()
 
+    var counter = 0
+
     init() {
         setup()
     }
@@ -27,15 +29,30 @@ class VCViewModel {
     }
 
     func fetchCurrencies() {
-        API.getCurrencyList(completionHandler: { response in
-            if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
-                let decoder = JSONDecoder()
-                if let decoded = try? decoder.decode([Cryptocurrency].self, from: data) {
-                    // Get currencies list using codable
-                    self.currencies.value = decoded
+        if counter == 0 {
+            API.getCurrencyList(completionHandler: { response in
+                if let data = response.data {
+                    let decoder = JSONDecoder()
+                    if let decoded = try? decoder.decode([Cryptocurrency].self, from: data) {
+                        // Get currencies list using codable
+                        self.currencies.value = decoded
+                        print(self.currencies.value)
+                        self.counter = 1
+                    }
                 }
-            }
-
-        })
+            })
+        } else {
+            API.getCurrencyList(completionHandler: { response in
+                if let data = response.data {
+                    let decoder = JSONDecoder()
+                    if let decoded = try? decoder.decode([Cryptocurrency].self, from: data) {
+                        // Get currencies list using codable
+                        self.currencies.value = [decoded[0]]
+                        print(self.currencies.value)
+                        self.counter = 0
+                    }
+                }
+            })
+        }
     }
 }
